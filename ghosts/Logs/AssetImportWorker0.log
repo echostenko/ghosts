@@ -136,3 +136,4 @@ Received Import Request.
 Start importing Assets/Common/Code/BootStrap.cs using Guid(49cbd74e62014ec39d349cddce0285a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40376286a7a44374988ed406c6f7488c') in 0.030360 seconds 
   Import took 0.033093 seconds .
 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
