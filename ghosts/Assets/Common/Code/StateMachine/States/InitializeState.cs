@@ -6,14 +6,10 @@ namespace Common.Code.StateMachine.States
     public class InitializeState: IState
     {
         private readonly ScenesService scenesService;
-        private readonly IGameStateMachine gameStateMachine;
 
         [Inject]
-        public InitializeState(ScenesService scenesService, IGameStateMachine gameStateMachine)
-        {
+        public InitializeState(ScenesService scenesService) => 
             this.scenesService = scenesService;
-            this.gameStateMachine = gameStateMachine;
-        }
 
         public void Enter()
         {
