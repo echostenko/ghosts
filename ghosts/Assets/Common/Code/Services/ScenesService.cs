@@ -19,17 +19,21 @@ namespace Common.Code.Services
             this.gameStateMachine = gameStateMachine;
         }
 
-        public void Initialize()
-        {
+        public void Initialize() => 
             startButton.OnStartButtonClicked += StartButtonOnOnStartButtonClicked;
-        }
-        
+
         private void StartButtonOnOnStartButtonClicked()
         {
             startButton.OnStartButtonClicked -= StartButtonOnOnStartButtonClicked;
 
             SceneManager.LoadScene(ghostsSceneName);
+            SceneManager.sceneLoaded += SceneManagerOnSceneLoaded;
             
+        }
+
+        private void SceneManagerOnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+        {
+            SceneManager.sceneLoaded -= SceneManagerOnSceneLoaded;
             gameStateMachine.Enter<GamePlayState>();
         }
     }
