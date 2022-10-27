@@ -5,16 +5,19 @@ namespace Common.Code.StateMachine.States
 {
     public class GamePlayState: IState
     {
-        private readonly IGhostSpawner ghostSpawner;
+        private readonly IGhostService ghostService;
+        private readonly GhostPool ghostPool;
 
         [Inject]
-        public GamePlayState(IGhostSpawner ghostSpawner)
+        public GamePlayState(IGhostService ghostService, GhostPool ghostPool)
         {
-            this.ghostSpawner = ghostSpawner;
+            this.ghostService = ghostService;
+            this.ghostPool = ghostPool;
         }
         public void Enter()
         {
-            ghostSpawner.Initialize();
+            ghostPool.Initialize();
+            ghostService.Initialize();
         }
 
         public void Exit()

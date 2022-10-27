@@ -3,15 +3,17 @@ using Zenject;
 
 namespace Common.Code.Ghost
 {
-    public class GhostSpawner : IGhostSpawner
+    public class GhostService : IGhostService
     {
         private readonly IGhostFactory ghostFactory;
+        private readonly GhostPool ghostPool;
         private GameObject ghost;
         
         [Inject]
-        public GhostSpawner(IGhostFactory ghostFactory)
+        public GhostService(IGhostFactory ghostFactory, GhostPool ghostPool)
         {
             this.ghostFactory = ghostFactory;
+            this.ghostPool = ghostPool;
             ghost = Resources.Load<GameObject>("Ghost");
         }
 

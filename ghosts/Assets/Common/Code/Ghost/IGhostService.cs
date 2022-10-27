@@ -1,6 +1,6 @@
 ﻿namespace Common.Code.Ghost
 {
-    public interface IGhostSpawner
+    public interface IGhostService
     {
         void Initialize();
     }

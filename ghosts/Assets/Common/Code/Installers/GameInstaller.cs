@@ -1,3 +1,4 @@
+using Common.Code.Data;
 using Common.Code.Ghost;
 using Common.Code.Input;
 using Common.Code.Services;
@@ -12,6 +13,7 @@ namespace Common.Code.Installers
     public class GameInstaller : MonoInstaller
     {
         [SerializeField] private StartButton startButton;
+        [SerializeField] private GhostSettings ghostSettings;
 
         public override void InstallBindings()
         {
@@ -23,10 +25,18 @@ namespace Common.Code.Installers
             BindGamePlayState();
             BindGhostFactory();
             BindGhostSpawner();
+            BindGhostPool();
+            BindGhostSettings();
         }
 
+        private void BindGhostSettings() => 
+            Container.Bind<GhostSettings>().FromScriptableObject(ghostSettings).AsSingle();
+        
+        private void BindGhostPool() => 
+            Container.Bind<GhostPool>().AsSingle();
+
         private void BindGhostSpawner() => 
-            Container.Bind<IGhostSpawner>().To<GhostSpawner>().AsSingle();
+            Container.Bind<IGhostService>().To<GhostService>().AsSingle();
 
         private void BindGhostFactory() => 
             Container.Bind<IGhostFactory>().To<GhostFactory>().AsSingle();
