@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startButton: {fileID: 1358354244}
+  ghostSettings: {fileID: 11400000, guid: 1017d97764c52394aadccdefa21415da, type: 2}
 --- !u!114 &322433414
 MonoBehaviour:
   m_ObjectHideFlags: 0

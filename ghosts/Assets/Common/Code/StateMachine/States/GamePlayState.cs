@@ -16,13 +16,12 @@ namespace Common.Code.StateMachine.States
         }
         public void Enter()
         {
-            ghostPool.Initialize();
             ghostService.Initialize();
+            ghostPool.Initialize();
         }
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

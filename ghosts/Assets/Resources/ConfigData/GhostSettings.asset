@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d737ad22f094b058ff26a21af9c2dcf, type: 3}
   m_Name: GhostSettings
   m_EditorClassIdentifier: 
-  GhostCount: 0
+  GhostCount: 10

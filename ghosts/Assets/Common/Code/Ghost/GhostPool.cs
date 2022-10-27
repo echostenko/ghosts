@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Common.Code.Data;
 using UnityEngine;
 
@@ -6,8 +7,10 @@ namespace Common.Code.Ghost
 {
     public class GhostPool
     {
-        public List<GameObject> Ghosts = new List<GameObject>();
-
+        public event Action PoolInitialized;
+        public List<GameObject> AvailableGhosts { get; } = new List<GameObject>();
+        
+        private readonly List<GameObject> usedGhosts = new List<GameObject>();
         private GameObject ghost;
         private readonly IGhostFactory ghostFactory;
         private readonly GhostSettings ghostSettings;
@@ -24,9 +27,27 @@ namespace Common.Code.Ghost
             for (var i = 0; i < ghostSettings.GhostCount; i++)
             {
                 var currentGhost = ghostFactory.Create(ghost, new Vector3(0, 0, 0));
-                Ghosts.Add(currentGhost);
-                currentGhost.SetActive(false);
+                AvailableGhosts.Add(currentGhost);
             }
+            
+            PoolInitialized?.Invoke();
+        }
+
+        public GameObject GetFromPool()
+        {
+            var currentGhost = AvailableGhosts[0];
+            AvailableGhosts.Remove(currentGhost);
+            usedGhosts.Add(currentGhost);
+            currentGhost.SetActive(true);
+            
+            return currentGhost;
+        }
+
+        public void SetToPool(GameObject ghost)
+        {
+            ghost.SetActive(false);
+            usedGhosts.Remove(ghost);
+            AvailableGhosts.Add(ghost);
         }
     }
 }

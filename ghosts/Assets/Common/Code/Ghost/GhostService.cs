@@ -1,25 +1,24 @@
-﻿using UnityEngine;
-using Zenject;
+﻿using Zenject;
 
 namespace Common.Code.Ghost
 {
     public class GhostService : IGhostService
     {
-        private readonly IGhostFactory ghostFactory;
         private readonly GhostPool ghostPool;
-        private GameObject ghost;
         
         [Inject]
-        public GhostService(IGhostFactory ghostFactory, GhostPool ghostPool)
-        {
-            this.ghostFactory = ghostFactory;
+        public GhostService(GhostPool ghostPool) => 
             this.ghostPool = ghostPool;
-            ghost = Resources.Load<GameObject>("Ghost");
-        }
 
-        public void Initialize()
+        public void Initialize() => 
+            ghostPool.PoolInitialized += GhostPoolOnPoolInitialized;
+
+        private void GhostPoolOnPoolInitialized()
         {
-            ghostFactory.Create(ghost, new Vector3(0,0,0));
+            ghostPool.PoolInitialized -= GhostPoolOnPoolInitialized;
+
+            for (var i = 0; i < ghostPool.AvailableGhosts.Count; i++) 
+                ghostPool.GetFromPool();
         }
     }
 }
