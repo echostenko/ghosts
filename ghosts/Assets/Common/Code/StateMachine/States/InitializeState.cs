@@ -11,10 +11,8 @@ namespace Common.Code.StateMachine.States
         public InitializeState(ScenesService scenesService) => 
             this.scenesService = scenesService;
 
-        public void Enter()
-        {
+        public void Enter() => 
             scenesService.Initialize();
-        }
 
         public void Exit()
         {
