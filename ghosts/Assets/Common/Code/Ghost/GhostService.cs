@@ -50,11 +50,13 @@ namespace Common.Code.Ghost
             var ghostBehaviour = ghostPool.GetFromPool(positionService.
                 GetRandomPosition(ghostSettings.LeftBound, ghostSettings.RightBound));
             ghostBehaviour.GhostOnFinish += GhostBehaviourOnGhostOnFinish;
+            ghostBehaviour.GhostOnClick += GhostBehaviourOnGhostOnFinish;
         }
 
         private void GhostBehaviourOnGhostOnFinish(object sender, GhostBehaviour currentGhost)
         {
             currentGhost.GhostOnFinish -= GhostBehaviourOnGhostOnFinish;
+            currentGhost.GhostOnClick -= GhostBehaviourOnGhostOnFinish;
             ghostPool.SetToPool(currentGhost);
         }
     }

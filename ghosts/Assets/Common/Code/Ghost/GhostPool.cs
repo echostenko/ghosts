@@ -42,7 +42,7 @@ namespace Common.Code.Ghost
             var currentGhost = AvailableGhosts[rand];
             AvailableGhosts.Remove(currentGhost);
             usedGhosts.Add(currentGhost);
-            currentGhost.transform.localPosition = position;
+            currentGhost.transform.position = position;
             currentGhost.gameObject.SetActive(true);
             currentGhost.gameObject.GetComponent<GhostBehaviour>().Move();
             
@@ -52,8 +52,8 @@ namespace Common.Code.Ghost
         public void SetToPool(GhostBehaviour ghost)
         {
             AvailableGhosts.Add(ghost);
-            usedGhosts.Remove(ghost);
             ghost.gameObject.SetActive(false);
+            usedGhosts.Remove(ghost);
             GhostAddedToPool?.Invoke();
         }
     }
