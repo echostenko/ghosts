@@ -8,11 +8,13 @@ namespace Common.Code.Ghost
 {
     public class GhostService : IGhostService
     {
+        private GhostBehaviour ghostBehaviour;
+        
         private readonly GhostPool ghostPool;
         private readonly ICoroutineRunner coroutineRunner;
         private readonly GhostSettings ghostSettings;
         private readonly PositionService positionService = new PositionService();
-        
+
         [Inject]
         public GhostService(GhostPool ghostPool, ICoroutineRunner coroutineRunner, GhostSettings ghostSettings)
         {
@@ -28,6 +30,7 @@ namespace Common.Code.Ghost
         {
             ghostPool.PoolInitialized -= GhostPoolOnPoolInitialized;
             coroutineRunner.StartCoroutine(SpawnWithDelay());
+            ghostPool.GhostAddedToPool += CreateGhost;
         }
 
         private IEnumerator SpawnWithDelay()
@@ -37,11 +40,21 @@ namespace Common.Code.Ghost
             {
                 CreateGhost();
                 ghostCount++;
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(ghostSettings.SpawnDelay);
             } while (ghostCount < ghostSettings.GhostCount);
         }
 
-        private void CreateGhost() => 
-            ghostPool.GetFromPool(positionService.GetRandomPosition(new Vector3(-7, -6, 0), new Vector3(7, -6, 0)));
+        private void CreateGhost()
+        {
+            ghostBehaviour = ghostPool.GetFromPool(positionService.
+                GetRandomPosition(ghostSettings.LeftBound, ghostSettings.RightBound));
+            ghostBehaviour.GhostOnFinish += GhostBehaviourOnGhostOnFinish;
+        }
+
+        private void GhostBehaviourOnGhostOnFinish(object sender, GhostBehaviour currentGhost)
+        {
+            ghostBehaviour.GhostOnFinish -= GhostBehaviourOnGhostOnFinish;
+            ghostPool.SetToPool(currentGhost);
+        }
     }
 }

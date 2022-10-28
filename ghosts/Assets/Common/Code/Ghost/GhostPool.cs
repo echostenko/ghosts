@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.Code.Data;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Common.Code.Ghost
 {
+    [UsedImplicitly]
     public class GhostPool
     {
         public event Action PoolInitialized;
-        public List<GameObject> AvailableGhosts { get; } = new List<GameObject>();
-        
-        private readonly List<GameObject> usedGhosts = new List<GameObject>();
+        public event Action GhostAddedToPool;
+        private List<GhostBehaviour> AvailableGhosts { get; } = new List<GhostBehaviour>();
+        private readonly List<GhostBehaviour> usedGhosts = new List<GhostBehaviour>();
         private GameObject ghost;
         private readonly IGhostFactory ghostFactory;
         private readonly GhostSettings ghostSettings;
@@ -33,22 +35,24 @@ namespace Common.Code.Ghost
             PoolInitialized?.Invoke();
         }
 
-        public GameObject GetFromPool(Vector3 position)
+        public GhostBehaviour GetFromPool(Vector3 position)
         {
             var currentGhost = AvailableGhosts[0];
             AvailableGhosts.Remove(currentGhost);
             usedGhosts.Add(currentGhost);
             currentGhost.transform.localPosition = position;
-            currentGhost.SetActive(true);
+            currentGhost.gameObject.SetActive(true);
+            currentGhost.gameObject.GetComponent<GhostBehaviour>().Move();
             
             return currentGhost;
         }
 
-        public void SetToPool(GameObject ghost)
+        public void SetToPool(GhostBehaviour ghost)
         {
-            ghost.SetActive(false);
-            usedGhosts.Remove(ghost);
             AvailableGhosts.Add(ghost);
+            usedGhosts.Remove(ghost);
+            ghost.gameObject.SetActive(false);
+            GhostAddedToPool?.Invoke();
         }
     }
 }

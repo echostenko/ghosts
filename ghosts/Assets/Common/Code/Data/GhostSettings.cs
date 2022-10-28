@@ -6,5 +6,8 @@ namespace Common.Code.Data
     public class GhostSettings: ScriptableObject
     {
         public int GhostCount;
+        public Vector3 LeftBound;
+        public Vector3 RightBound;
+        public float SpawnDelay;
     }
 }
