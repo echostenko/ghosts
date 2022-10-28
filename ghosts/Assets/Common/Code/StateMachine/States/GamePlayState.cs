@@ -20,8 +20,7 @@ namespace Common.Code.StateMachine.States
             ghostPool.Initialize();
         }
 
-        public void Exit()
-        {
-        }
+        public void Exit() => 
+            ghostService.UnSubscribe();
     }
 }

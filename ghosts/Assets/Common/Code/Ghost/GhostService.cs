@@ -8,8 +8,6 @@ namespace Common.Code.Ghost
 {
     public class GhostService : IGhostService
     {
-        private GhostBehaviour ghostBehaviour;
-        
         private readonly GhostPool ghostPool;
         private readonly ICoroutineRunner coroutineRunner;
         private readonly GhostSettings ghostSettings;
@@ -25,6 +23,9 @@ namespace Common.Code.Ghost
 
         public void Initialize() => 
             ghostPool.PoolInitialized += GhostPoolOnPoolInitialized;
+
+        public void UnSubscribe() => 
+            ghostPool.GhostAddedToPool -= CreateGhost;
 
         private void GhostPoolOnPoolInitialized()
         {
@@ -46,14 +47,14 @@ namespace Common.Code.Ghost
 
         private void CreateGhost()
         {
-            ghostBehaviour = ghostPool.GetFromPool(positionService.
+            var ghostBehaviour = ghostPool.GetFromPool(positionService.
                 GetRandomPosition(ghostSettings.LeftBound, ghostSettings.RightBound));
             ghostBehaviour.GhostOnFinish += GhostBehaviourOnGhostOnFinish;
         }
 
         private void GhostBehaviourOnGhostOnFinish(object sender, GhostBehaviour currentGhost)
         {
-            ghostBehaviour.GhostOnFinish -= GhostBehaviourOnGhostOnFinish;
+            currentGhost.GhostOnFinish -= GhostBehaviourOnGhostOnFinish;
             ghostPool.SetToPool(currentGhost);
         }
     }

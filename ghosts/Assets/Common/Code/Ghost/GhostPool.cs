@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Common.Code.Data;
 using JetBrains.Annotations;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Common.Code.Ghost
 {
@@ -37,7 +38,8 @@ namespace Common.Code.Ghost
 
         public GhostBehaviour GetFromPool(Vector3 position)
         {
-            var currentGhost = AvailableGhosts[0];
+            var rand = Random.Range(0, AvailableGhosts.Count);
+            var currentGhost = AvailableGhosts[rand];
             AvailableGhosts.Remove(currentGhost);
             usedGhosts.Add(currentGhost);
             currentGhost.transform.localPosition = position;

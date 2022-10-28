@@ -3,5 +3,6 @@
     public interface IGhostService
     {
         void Initialize();
+        void UnSubscribe();
     }
 }
