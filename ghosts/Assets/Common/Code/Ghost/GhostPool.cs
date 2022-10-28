@@ -33,11 +33,12 @@ namespace Common.Code.Ghost
             PoolInitialized?.Invoke();
         }
 
-        public GameObject GetFromPool()
+        public GameObject GetFromPool(Vector3 position)
         {
             var currentGhost = AvailableGhosts[0];
             AvailableGhosts.Remove(currentGhost);
             usedGhosts.Add(currentGhost);
+            currentGhost.transform.localPosition = position;
             currentGhost.SetActive(true);
             
             return currentGhost;
