@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Common.Code.Data;
 using JetBrains.Annotations;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Common.Code.Ghost
@@ -18,6 +19,7 @@ namespace Common.Code.Ghost
         private readonly IGhostFactory ghostFactory;
         private readonly GhostSettings ghostSettings;
 
+        [Inject]
         public GhostPool(IGhostFactory ghostFactory, GhostSettings ghostSettings)
         {
             this.ghostFactory = ghostFactory;

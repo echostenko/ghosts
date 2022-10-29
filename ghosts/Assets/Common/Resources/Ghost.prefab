@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5161390947096087582}
+  scoreBehaviour: {fileID: 3298278288705158713, guid: c0c8b50809f6ae044910ea7dc08c3ab1, type: 3}
 --- !u!61 &6816431038525586930
 BoxCollider2D:
   m_ObjectHideFlags: 0

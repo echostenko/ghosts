@@ -1,4 +1,5 @@
 ﻿using System;
+using Common.Code.Score;
 using DG.Tweening;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace Common.Code.Ghost
     public class GhostBehaviour : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private Animator animator;
+        [SerializeField] private ScoreBehaviour scoreBehaviour;
+        private ScoreBehaviour score;
         private const string ClickTriggerName = "click";
         private readonly int click = Animator.StringToHash(ClickTriggerName);
         public event EventHandler<GhostBehaviour> GhostOnFinish;
@@ -24,8 +27,12 @@ namespace Common.Code.Ghost
         public void SendEventGhostKilled()
         {
             GhostOnClick?.Invoke(this, this);
+            score.AddPoint();
             gameObject.SetActive(false);
         }
+
+        private void Awake() => 
+            score = scoreBehaviour.GetInstance();
 
         private void OnComplete() => 
             GhostOnFinish?.Invoke(this, this);
