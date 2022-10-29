@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Common.Code.Data;
+using Common.Code.Ghost.Interfaces;
 using Common.Code.Services;
 using UnityEngine;
 using Zenject;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.Code.Data;
+using Common.Code.Ghost.Interfaces;
 using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
@@ -14,8 +15,8 @@ namespace Common.Code.Ghost
         public event Action PoolInitialized;
         public event Action GhostAddedToPool;
         private List<GhostBehaviour> AvailableGhosts { get; } = new List<GhostBehaviour>();
-        private readonly List<GhostBehaviour> usedGhosts = new List<GhostBehaviour>();
         private GameObject ghost;
+        private readonly List<GhostBehaviour> usedGhosts = new List<GhostBehaviour>();
         private readonly IGhostFactory ghostFactory;
         private readonly GhostSettings ghostSettings;
 

@@ -1,5 +1,6 @@
 using Common.Code.Data;
 using Common.Code.Ghost;
+using Common.Code.Ghost.Interfaces;
 using Common.Code.Input;
 using Common.Code.Services;
 using Common.Code.StateMachine;

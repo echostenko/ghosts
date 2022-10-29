@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using Common.Code.Ghost.Interfaces;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Common.Code.Ghost

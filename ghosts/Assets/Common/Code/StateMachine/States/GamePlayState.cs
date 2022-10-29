@@ -1,4 +1,5 @@
 ﻿using Common.Code.Ghost;
+using Common.Code.Ghost.Interfaces;
 using Zenject;
 
 namespace Common.Code.StateMachine.States
