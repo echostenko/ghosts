@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GhostSettings
   m_EditorClassIdentifier: 
   GhostCount: 10
-  LeftBound: {x: -7, y: -7, z: 0}
-  RightBound: {x: 7, y: -7, z: 0}
+  LeftBound: {x: -7, y: -7, z: 91}
+  RightBound: {x: 7, y: -7, z: 91}
   SpawnDelay: 1

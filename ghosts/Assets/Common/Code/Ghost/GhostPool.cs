@@ -31,7 +31,7 @@ namespace Common.Code.Ghost
         {
             for (var i = 0; i < ghostSettings.GhostCount; i++)
             {
-                var currentGhost = ghostFactory.Create(ghost, new Vector3(0, 0, 0));
+                var currentGhost = ghostFactory.Create(ghost, Vector3.zero);
                 AvailableGhosts.Add(currentGhost);
             }
             
