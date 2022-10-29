@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Common.Code.Ghost
+namespace Common.Code.Ghost.Interfaces
 {
     public interface IGhostFactory
     {

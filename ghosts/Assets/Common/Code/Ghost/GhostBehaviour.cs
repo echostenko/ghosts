@@ -11,6 +11,7 @@ namespace Common.Code.Ghost
     {
         [SerializeField] private Animator animator;
         [SerializeField] private ScoreBehaviour scoreBehaviour;
+        
         private ScoreBehaviour score;
         private const string ClickTriggerName = "click";
         private readonly int click = Animator.StringToHash(ClickTriggerName);
